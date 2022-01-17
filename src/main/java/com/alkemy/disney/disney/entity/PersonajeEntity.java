@@ -19,6 +19,8 @@ public class PersonajeEntity {
 
     private String imagen;
 
+    private String nombre;
+
     private int edad;
 
     private double peso;

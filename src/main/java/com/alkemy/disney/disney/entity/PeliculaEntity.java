@@ -31,7 +31,7 @@ public class PeliculaEntity {
     @JoinColumn(name = "genero_id", insertable = false, updatable = false)
     private GeneroEntity genero;
 
-    @Column(name = "continente_id", nullable = false)
+    @Column(name = "genero_id", nullable = false)
     private Long generoId;
 
     @ManyToMany(
@@ -44,4 +44,6 @@ public class PeliculaEntity {
             joinColumns = @JoinColumn(name = "pelicula_id"),
             inverseJoinColumns = @JoinColumn(name = "personaje_id"))
     private Set<PersonajeEntity> personajes = new HashSet<>();
+
+    private int calificacion;
 }
