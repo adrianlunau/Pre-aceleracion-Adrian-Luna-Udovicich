@@ -42,9 +42,24 @@ public class PersonajeController {
         return ResponseEntity.ok().body(dto);
     }
 
+    /*
     @GetMapping
     public ResponseEntity<List<PersonajeBasicDTO>> getBasicList() {
         List<PersonajeBasicDTO> dtos = this.personajeService.getBasicList();
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
+    }
+
+     */
+
+    //Filtros combinados
+    @GetMapping
+    public ResponseEntity<List<PersonajeDTO>> getDetailsByFilters(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) Integer edad,
+            @RequestParam(required = false) List<Long> peliculas,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ) {
+        List<PersonajeDTO> personajes = this.personajeService.getByFilters(nombre, edad, peliculas, order);
+        return ResponseEntity.ok(personajes);
     }
 }
