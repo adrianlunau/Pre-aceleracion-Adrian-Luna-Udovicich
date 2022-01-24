@@ -47,20 +47,28 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     @Override
     public PeliculaDTO update(PeliculaDTO dto) {
-        PeliculaEntity pelicula2Modify = peliculaRepository.getById(dto.getId());
-        pelicula2Modify.setImagen(dto.getImage());
-        pelicula2Modify.setTitulo(dto.getName());
-        pelicula2Modify.setFechaCreacion(peliculaMapper.string2LocalDate(dto.getDate()));
-        pelicula2Modify.setCalificacion(dto.getRating());
-        peliculaRepository.save(pelicula2Modify);
+        Optional<PeliculaEntity> pelicula2Modify = peliculaRepository.findById(dto.getId());
 
-        PeliculaDTO result = peliculaMapper.peliculaEntity2DTO(pelicula2Modify, true);
+        if (!pelicula2Modify.isPresent()) {
+            throw new ParamNotFound("ID pelicula no valido");
+        }
+        pelicula2Modify.get().setImagen(dto.getImagen());
+        pelicula2Modify.get().setTitulo(dto.getTitulo());
+        pelicula2Modify.get().setFechaCreacion(peliculaMapper.string2LocalDate(dto.getFechaCreacion()));
+        pelicula2Modify.get().setCalificacion(dto.getCalificacion());
+        PeliculaEntity peliculaSaved = peliculaRepository.save(pelicula2Modify.get());
+
+        PeliculaDTO result = peliculaMapper.peliculaEntity2DTO(peliculaSaved, true);
 
         return result;
     }
 
     @Override
     public void delete(Long id) {
+        Optional<PeliculaEntity> entity = this.peliculaRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("ID pelicula no valido");
+        }
         this.peliculaRepository.deleteById(id);
     }
 

@@ -39,6 +39,7 @@ public class PersonajeMapper {
         dto.setHistoria(entity.getHistoria());
         if (loadPeliculas){
             List<PeliculaDTO> peliculasDTO = this.peliculaMapper.peliculasEntityList2DTOList(entity.getPeliculas(), false);
+            dto.setPeliculas(peliculasDTO);
         }
         return dto;
     }

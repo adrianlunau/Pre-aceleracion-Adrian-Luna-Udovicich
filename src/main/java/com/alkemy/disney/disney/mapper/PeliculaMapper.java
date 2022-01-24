@@ -25,13 +25,13 @@ public class PeliculaMapper {
 
     public PeliculaEntity peliculaDTO2Entity(PeliculaDTO dto, boolean loadPersonajes) {
         PeliculaEntity entity = new PeliculaEntity();
-        entity.setImagen(dto.getImage());
-        entity.setTitulo(dto.getName());
-        entity.setFechaCreacion(this.string2LocalDate(dto.getDate()));
-        entity.setCalificacion(dto.getRating());
-        entity.setGeneroId(dto.getGenre());
+        entity.setImagen(dto.getImagen());
+        entity.setTitulo(dto.getTitulo());
+        entity.setFechaCreacion(this.string2LocalDate(dto.getFechaCreacion()));
+        entity.setCalificacion(dto.getCalificacion());
+        entity.setGeneroId(dto.getGenero());
         if (loadPersonajes){
-            List<PersonajeEntity> personajesEntityList = this.personajeMapper.personajeDTOList2entities(dto.getCharacters());
+            List<PersonajeEntity> personajesEntityList = this.personajeMapper.personajeDTOList2entities(dto.getPersonajes());
             entity.setPersonajes(personajesEntityList);
         }
         return entity;
@@ -39,13 +39,13 @@ public class PeliculaMapper {
     public PeliculaDTO peliculaEntity2DTO(PeliculaEntity entity, boolean loadPersonajes) {
         PeliculaDTO dto = new PeliculaDTO();
         dto.setId(entity.getId());
-        dto.setImage(entity.getImagen());
-        dto.setName(entity.getTitulo());
-        dto.setDate(entity.getFechaCreacion().toString());
-        dto.setRating(entity.getCalificacion());
+        dto.setImagen(entity.getImagen());
+        dto.setTitulo(entity.getTitulo());
+        dto.setFechaCreacion(entity.getFechaCreacion().toString());
+        dto.setCalificacion(entity.getCalificacion());
         if (loadPersonajes){
             List<PersonajeDTO> personajes = this.personajeMapper.personajeEntityList2DTOList(entity.getPersonajes());
-            dto.setCharacters(personajes);
+            dto.setPersonajes(personajes);
 
         }
         return dto;

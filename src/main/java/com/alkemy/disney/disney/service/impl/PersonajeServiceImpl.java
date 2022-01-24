@@ -35,25 +35,33 @@ public class PersonajeServiceImpl implements PersonajeService {
         PersonajeEntity entity = personajeMapper.personajeDTO2Entity(dto);
         PersonajeEntity entitySaved = this.personajeRepository.save(entity);
         PersonajeDTO result = personajeMapper.personajeEntity2DTO(entitySaved, false);
-        return null;
+        return result;
     }
 
     @Override
     public PersonajeDTO update(PersonajeDTO personaje) {
-        PersonajeEntity personaje2Modified = personajeRepository.getById(personaje.getId());
-        personaje2Modified.setImagen(personaje.getImagen());
-        personaje2Modified.setNombre(personaje.getNombre());
-        personaje2Modified.setEdad(personaje.getEdad());
-        personaje2Modified.setPeso(personaje.getPeso());
-        personaje2Modified.setHistoria(personaje.getHistoria());
-        personajeRepository.save(personaje2Modified);
+        Optional<PersonajeEntity> personaje2Modified = personajeRepository.findById(personaje.getId());
 
-        PersonajeDTO result = personajeMapper.personajeEntity2DTO(personaje2Modified, false);
+        if(!personaje2Modified.isPresent()){
+            throw new ParamNotFound("ID personaje no valido");
+        }
+        personaje2Modified.get().setImagen(personaje.getImagen());
+        personaje2Modified.get().setNombre(personaje.getNombre());
+        personaje2Modified.get().setEdad(personaje.getEdad());
+        personaje2Modified.get().setPeso(personaje.getPeso());
+        personaje2Modified.get().setHistoria(personaje.getHistoria());
+        PersonajeEntity personajeSaved = personajeRepository.save(personaje2Modified.get());
+
+        PersonajeDTO result = personajeMapper.personajeEntity2DTO(personajeSaved, false);
         return result;
     }
 
     @Override
     public void delete(Long id) {
+        Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
+        if (!entity.isPresent()){
+            throw new ParamNotFound("ID personaje no valido");
+        }
         this.personajeRepository.deleteById(id);
     }
 

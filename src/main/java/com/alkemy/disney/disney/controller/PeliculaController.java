@@ -43,7 +43,7 @@ public class PeliculaController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    
+
     public ResponseEntity<List<PeliculaBasicDTO>> getBasicList() {
         List<PeliculaBasicDTO> peliculas = this.peliculaService.getBasicList();
         return ResponseEntity.status(HttpStatus.OK).body(peliculas);
