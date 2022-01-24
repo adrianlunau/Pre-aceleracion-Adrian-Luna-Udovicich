@@ -2,14 +2,17 @@ package com.alkemy.disney.disney.service.impl;
 
 import com.alkemy.disney.disney.dto.PeliculaBasicDTO;
 import com.alkemy.disney.disney.dto.PeliculaDTO;
+import com.alkemy.disney.disney.dto.PeliculaFilterDTO;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
+import com.alkemy.disney.disney.exception.ParamNotFound;
 import com.alkemy.disney.disney.mapper.PeliculaMapper;
 import com.alkemy.disney.disney.repository.PeliculaRepository;
+import com.alkemy.disney.disney.repository.specifications.PeliculaSpecification;
 import com.alkemy.disney.disney.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PeliculaServiceImpl implements PeliculaService {
@@ -19,6 +22,9 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+
+    @Autowired
+    private PeliculaSpecification peliculaSpecification;
 
 
     @Override
@@ -31,18 +37,21 @@ public class PeliculaServiceImpl implements PeliculaService {
 
     @Override
     public PeliculaDTO getDetails(Long id) {
-        PeliculaEntity entity = peliculaRepository.getById(id);
-        PeliculaDTO dto = peliculaMapper.peliculaEntity2DTO(entity, true);
+        Optional<PeliculaEntity> entity = this.peliculaRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("ID pelicula no valido");
+        }
+        PeliculaDTO dto = peliculaMapper.peliculaEntity2DTO(entity.get(), true);
         return dto;
     }
 
     @Override
     public PeliculaDTO update(PeliculaDTO dto) {
         PeliculaEntity pelicula2Modify = peliculaRepository.getById(dto.getId());
-        pelicula2Modify.setImagen(dto.getImagen());
-        pelicula2Modify.setTitulo(dto.getTitulo());
-        pelicula2Modify.setFechaCreacion(peliculaMapper.string2LocalDate(dto.getFechaCreacion()));
-        pelicula2Modify.setCalificacion(dto.getCalificacion());
+        pelicula2Modify.setImagen(dto.getImage());
+        pelicula2Modify.setTitulo(dto.getName());
+        pelicula2Modify.setFechaCreacion(peliculaMapper.string2LocalDate(dto.getDate()));
+        pelicula2Modify.setCalificacion(dto.getRating());
         peliculaRepository.save(pelicula2Modify);
 
         PeliculaDTO result = peliculaMapper.peliculaEntity2DTO(pelicula2Modify, true);
@@ -61,6 +70,16 @@ public class PeliculaServiceImpl implements PeliculaService {
         List<PeliculaEntity> entities = this.peliculaRepository.findAll();
         List<PeliculaBasicDTO> result = this.peliculaMapper.peliculaEntityList2BasicDTO(entities);
         return result;
+    }
+
+    @Override
+    public List<PeliculaBasicDTO> getByFilters(String name, String genre, String order) {
+        Long genreLong = Long.parseLong(genre);
+        PeliculaFilterDTO filtersDTO = new PeliculaFilterDTO(name, genreLong, order);
+        List<PeliculaEntity> entities = this.peliculaRepository.findAll(this.peliculaSpecification.getByFilters(filtersDTO));
+        List<PeliculaBasicDTO> dtos = this.peliculaMapper.peliculaEntityList2BasicDTO(entities);
+
+        return dtos;
     }
 
 }

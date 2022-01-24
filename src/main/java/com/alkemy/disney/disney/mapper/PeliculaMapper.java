@@ -18,22 +18,20 @@ import java.util.List;
 public class PeliculaMapper {
 
     @Autowired
+    @Lazy
     private PersonajeMapper personajeMapper;
 
-    @Autowired
-    public PeliculaMapper (@Lazy PersonajeMapper persMapp){
-        this.personajeMapper = persMapp;
-    }
+
 
     public PeliculaEntity peliculaDTO2Entity(PeliculaDTO dto, boolean loadPersonajes) {
         PeliculaEntity entity = new PeliculaEntity();
-        entity.setImagen(dto.getImagen());
-        entity.setTitulo(dto.getTitulo());
-        entity.setFechaCreacion(this.string2LocalDate(dto.getFechaCreacion()));
-        entity.setCalificacion(dto.getCalificacion());
-        entity.setGeneroId(dto.getGenero());
+        entity.setImagen(dto.getImage());
+        entity.setTitulo(dto.getName());
+        entity.setFechaCreacion(this.string2LocalDate(dto.getDate()));
+        entity.setCalificacion(dto.getRating());
+        entity.setGeneroId(dto.getGenre());
         if (loadPersonajes){
-            List<PersonajeEntity> personajesEntityList = this.personajeMapper.personajeDTOList2entities(dto.getPersonajes());
+            List<PersonajeEntity> personajesEntityList = this.personajeMapper.personajeDTOList2entities(dto.getCharacters());
             entity.setPersonajes(personajesEntityList);
         }
         return entity;
@@ -41,13 +39,13 @@ public class PeliculaMapper {
     public PeliculaDTO peliculaEntity2DTO(PeliculaEntity entity, boolean loadPersonajes) {
         PeliculaDTO dto = new PeliculaDTO();
         dto.setId(entity.getId());
-        dto.setImagen(entity.getImagen());
-        dto.setTitulo(entity.getTitulo());
-        dto.setFechaCreacion(entity.getFechaCreacion().toString());
-        dto.setCalificacion(entity.getCalificacion());
+        dto.setImage(entity.getImagen());
+        dto.setName(entity.getTitulo());
+        dto.setDate(entity.getFechaCreacion().toString());
+        dto.setRating(entity.getCalificacion());
         if (loadPersonajes){
             List<PersonajeDTO> personajes = this.personajeMapper.personajeEntityList2DTOList(entity.getPersonajes());
-            dto.setPersonajes(personajes);
+            dto.setCharacters(personajes);
 
         }
         return dto;
@@ -75,9 +73,9 @@ public class PeliculaMapper {
         for (PeliculaEntity entity : entities){
             basicDTO = new PeliculaBasicDTO();
 
-            basicDTO.setImagen(entity.getImagen());
-            basicDTO.setTitulo(entity.getTitulo());
-            basicDTO.setFechaCreacion(entity.getFechaCreacion().toString());
+            basicDTO.setImage(entity.getImagen());
+            basicDTO.setName(entity.getTitulo());
+            basicDTO.setDate(entity.getFechaCreacion().toString());
             listBasicDTOS.add(basicDTO);
         }
         return listBasicDTOS;

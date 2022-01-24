@@ -14,6 +14,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PersonajeSpecification {
@@ -32,7 +33,8 @@ public class PersonajeSpecification {
                 );
             }
 
-            if (filtersDTO.getEdad() != null) {
+            // dentro del if tenia esto: !Objects.isNull(filtersDTO.getEdad())
+            if (filtersDTO.getEdad() >= 0) {
 
                 predicates.add(
                         criteriaBuilder.equal(root.get("edad"), filtersDTO.getEdad())

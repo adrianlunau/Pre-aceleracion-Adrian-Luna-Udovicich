@@ -6,9 +6,11 @@ import com.alkemy.disney.disney.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("movies")
@@ -41,9 +43,35 @@ public class PeliculaController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping
+    
     public ResponseEntity<List<PeliculaBasicDTO>> getBasicList() {
         List<PeliculaBasicDTO> peliculas = this.peliculaService.getBasicList();
         return ResponseEntity.status(HttpStatus.OK).body(peliculas);
     }
+
+
+    public ResponseEntity<List<PeliculaBasicDTO>> getByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false, defaultValue = "0") String genre,
+            @RequestParam(required = false, defaultValue = "ASC") String order) {
+
+        List<PeliculaBasicDTO> peliculas = this.peliculaService.getByFilters(name, genre, order);
+        return ResponseEntity.ok(peliculas);
+
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PeliculaBasicDTO>> get(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false, defaultValue = "-1") String genre,
+            @RequestParam(required = false, defaultValue = "ASC") String order) {
+
+        if (Objects.isNull(name) && genre.equals("-1")){
+            return this.getBasicList();
+        } else {
+            return  this.getByFilters(name, genre, order);
+
+        }
+    }
+
 }

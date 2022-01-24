@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class PeliculaBasicDTO {
 
-    private String imagen;
-    private String titulo;
-    private String fechaCreacion;
+    private String image;
+    private String name;
+    private String date;
 }

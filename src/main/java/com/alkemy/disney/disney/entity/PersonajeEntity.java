@@ -25,7 +25,7 @@ public class PersonajeEntity {
 
     private String nombre;
 
-    private int edad;
+    private Integer edad;
 
     private double peso;
 

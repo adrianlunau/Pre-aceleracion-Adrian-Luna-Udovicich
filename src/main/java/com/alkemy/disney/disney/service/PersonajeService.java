@@ -18,5 +18,7 @@ public interface PersonajeService {
 
     List<PersonajeBasicDTO> getBasicList();
 
-    List<PersonajeDTO> getByFilters(String nombre, int edad, List<Long> peliculas, String order);
+    List<PersonajeBasicDTO> getByFilters(String nombre, String edad, List<Long> peliculas, String order);
+
+
 }

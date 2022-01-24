@@ -15,4 +15,6 @@ public interface PeliculaService {
     void delete (Long id);
 
     List<PeliculaBasicDTO> getBasicList ();
+
+    List<PeliculaBasicDTO> getByFilters(String name, String genre, String order);
 }

@@ -5,6 +5,7 @@ import com.alkemy.disney.disney.dto.PersonajeBasicDTO;
 import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import java.util.List;
 @Component
 public class PersonajeMapper {
 
-
+    @Autowired
+    @Lazy
     private PeliculaMapper peliculaMapper;
+
 
     public PersonajeEntity personajeDTO2Entity (PersonajeDTO dto) {
         PersonajeEntity entity = new PersonajeEntity();
-        //aca agregue el id
-        //entity.setId(dto.getId());
         entity.setImagen(dto.getImagen());
         entity.setNombre(dto.getNombre());
         entity.setEdad(dto.getEdad());

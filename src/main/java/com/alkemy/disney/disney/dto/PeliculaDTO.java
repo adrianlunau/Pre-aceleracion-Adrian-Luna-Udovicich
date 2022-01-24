@@ -11,10 +11,10 @@ import java.util.List;
 @Setter
 public class PeliculaDTO {
     private Long id;
-    private String imagen;
-    private String titulo;
-    private String fechaCreacion;
-    private Long genero;
-    private int calificacion;
-    private List<PersonajeDTO> personajes = new ArrayList<>();
+    private String image;
+    private String name;
+    private String date;
+    private Long genre;
+    private int rating;
+    private List<PersonajeDTO> characters = new ArrayList<>();
 }

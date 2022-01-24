@@ -4,6 +4,7 @@ import com.alkemy.disney.disney.dto.PersonajeBasicDTO;
 import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.dto.PersonajeFilterDTO;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
+import com.alkemy.disney.disney.exception.ParamNotFound;
 import com.alkemy.disney.disney.mapper.PersonajeMapper;
 import com.alkemy.disney.disney.repository.PersonajeRepository;
 import com.alkemy.disney.disney.repository.specifications.PersonajeSpecification;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PersonajeServiceImpl implements PersonajeService {
@@ -56,8 +59,11 @@ public class PersonajeServiceImpl implements PersonajeService {
 
     @Override
     public PersonajeDTO getById(Long id) {
-        PersonajeEntity entity = this.personajeRepository.getById(id);
-        PersonajeDTO result = this.personajeMapper.personajeEntity2DTO(entity, true);
+        Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
+        if (!entity.isPresent()){
+            throw new ParamNotFound("ID personaje no valido");
+        }
+        PersonajeDTO result = this.personajeMapper.personajeEntity2DTO(entity.get(), true);
         return result;
     }
 
@@ -69,10 +75,13 @@ public class PersonajeServiceImpl implements PersonajeService {
     }
 
     @Override
-    public List<PersonajeDTO> getByFilters(String nombre, int edad, List<Long> peliculas, String order) {
-        PersonajeFilterDTO filtersDTO = new PersonajeFilterDTO(nombre, edad, peliculas, order);
+    public List<PersonajeBasicDTO> getByFilters(String nombre, String edad, List<Long> peliculas, String order) {
+
+        Integer edadInt = Integer.parseInt(edad);
+
+        PersonajeFilterDTO filtersDTO = new PersonajeFilterDTO(nombre, edadInt, peliculas, order);
         List<PersonajeEntity> entities = this.personajeRepository.findAll(this.personajeSpecification.getByFilters(filtersDTO));
-        List<PersonajeDTO> dtos = this.personajeMapper.personajeEntityList2DTOList(entities);
+        List<PersonajeBasicDTO> dtos = this.personajeMapper.personajeEntityList2BasicDTOList(entities);
         return dtos;
     }
 }
