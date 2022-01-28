@@ -129,13 +129,21 @@ public class PeliculaServiceImpl implements PeliculaService {
         }
         PeliculaEntity peliculaEntity = pelicula.get();
 
-        for (int i=0; i< peliculaEntity.getPersonajes().size() ; i++){
-            if (peliculaEntity.getPersonajes().get(i).getId() == idPersonaje){
-                peliculaEntity.removeCharacter(peliculaEntity.getPersonajes().get(i));
-            } else {
-                throw new ParamNotFound("ID personaje no valido");
-            }
+        //nuevo
+
+        Optional<PersonajeEntity> personajeOptional = this.personajeRepository.findById(idPersonaje);
+        if (!personajeOptional.isPresent()) {
+            throw new ParamNotFound("ID personaje no valido");
         }
+
+        PersonajeEntity personaje = personajeOptional.get();
+
+        if (!peliculaEntity.getPersonajes().contains(personaje)) {
+            throw new ParamNotFound("ID personaje no valido");
+        }
+
+        peliculaEntity.removeCharacter(personaje);
+
         PeliculaEntity entitySaved = this.peliculaRepository.save(peliculaEntity);
         PeliculaDTO result = this.peliculaMapper.peliculaEntity2DTO(entitySaved, true);
         return result;
