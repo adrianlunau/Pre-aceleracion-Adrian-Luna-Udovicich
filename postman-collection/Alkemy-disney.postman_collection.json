@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "83123bc7-40fa-43f4-a21e-dac3ae7aaea9",
+		"name": "Alkemy-disney",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Personaje",
+			"item": [
+				{
+					"name": "Save personaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Tribilin\",\r\n    \"edad\": \"38\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update personaje",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"19\",\r\n    \"imagen\": \"/img/mini.jpg\",\r\n    \"nombre\": \"Mini Mouse\",\r\n    \"edad\": \"20\",\r\n    \"peso\": \"25\",\r\n    \"historia\": \"Es la novia de mickey\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete personaje by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/characters/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get personaje by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/characters/40",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Basic list + filtros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/characters?name=pluto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "pluto"
+								},
+								{
+									"key": "age",
+									"value": "21",
+									"disabled": true
+								},
+								{
+									"key": "movies",
+									"value": "12",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genero",
+			"item": [
+				{
+					"name": "Save genero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagen\": \"/img/animadas.jpg\",\r\n    \"nombre\": \"animadas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pelicula",
+			"item": [
+				{
+					"name": "Save pelicula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Hulk\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"5\",\r\n    \"personajes\": [{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Hulk\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },\r\n    {\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    }]\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get details pelicula by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/52",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update pelicula",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"16\",\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Prueba modificacion\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete pelicula",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/48",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"48"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get basic list peliculas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies?name=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "3"
+								},
+								{
+									"key": "genre",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add character",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmR5X2w4OUBob3RtYWlsLmNvbSIsImV4cCI6MTY0MzQzMjQ5NywiaWF0IjoxNjQzMzk2NDk3fQ.e3B4_RwqXkQS69SE17WETAzcduvPVnsOnyq30bT6SRw",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove Character",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmR5X2w4OUBob3RtYWlsLmNvbSIsImV4cCI6MTY0MzQzMjQ5NywiaWF0IjoxNjQzMzk2NDk3fQ.e3B4_RwqXkQS69SE17WETAzcduvPVnsOnyq30bT6SRw",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"adrianelunau@gmail.com\",\r\n    \"password\": \"pass1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/singup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"singup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "singin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

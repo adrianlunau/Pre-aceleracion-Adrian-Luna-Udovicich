@@ -17,4 +17,5 @@ public class PeliculaDTO {
     private Long genero;
     private int calificacion;
     private List<PersonajeDTO> personajes = new ArrayList<>();
+
 }

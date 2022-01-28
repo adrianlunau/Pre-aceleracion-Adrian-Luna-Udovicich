@@ -54,4 +54,15 @@ public class PeliculaEntity {
     private int calificacion;
 
     private boolean deleted = Boolean.FALSE;
+
+    public void addCharacter(PersonajeEntity personaje){
+        this.personajes.add(personaje);
+    }
+
+    public void removeCharacter(PersonajeEntity personaje){
+        this.personajes.remove(personaje);
+    }
+
+
+
 }

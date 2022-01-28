@@ -37,5 +37,18 @@ public class PersonajeEntity {
     private boolean deleted = Boolean.FALSE;
 
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==null){
+            return false;
+        }
+        if (!(obj instanceof PersonajeEntity)){
+            return false;
+
+        } else {
+            PersonajeEntity personajeEntity = (PersonajeEntity) obj;
+            return this.getId().equals(personajeEntity.getId());
+        }
+    }
 
 }
