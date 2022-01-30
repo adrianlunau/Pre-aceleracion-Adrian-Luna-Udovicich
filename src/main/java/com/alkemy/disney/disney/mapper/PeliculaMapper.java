@@ -43,6 +43,7 @@ public class PeliculaMapper {
         dto.setTitulo(entity.getTitulo());
         dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setCalificacion(entity.getCalificacion());
+        dto.setGenero(entity.getGeneroId());
         if (loadPersonajes){
             List<PersonajeDTO> personajes = this.personajeMapper.personajeEntityList2DTOList(entity.getPersonajes());
             dto.setPersonajes(personajes);

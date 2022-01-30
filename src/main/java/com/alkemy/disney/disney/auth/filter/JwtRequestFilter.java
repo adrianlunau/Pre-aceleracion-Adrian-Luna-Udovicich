@@ -2,6 +2,7 @@ package com.alkemy.disney.disney.auth.filter;
 
 import com.alkemy.disney.disney.auth.service.JwtUtils;
 import com.alkemy.disney.disney.auth.service.UserDetailsCustomService;
+import com.alkemy.disney.disney.exception.ParamNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,7 +57,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
+
         }
+
         filterChain.doFilter(request, response);
     }
 }

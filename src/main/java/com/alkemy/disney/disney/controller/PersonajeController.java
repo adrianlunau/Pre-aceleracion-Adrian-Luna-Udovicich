@@ -45,15 +45,7 @@ public class PersonajeController {
     }
 
 
-    //Devuelve una lista basica
-
-    public ResponseEntity<List<PersonajeBasicDTO>> getBasicList() {
-        List<PersonajeBasicDTO> dtos = this.personajeService.getBasicList();
-        return ResponseEntity.status(HttpStatus.OK).body(dtos);
-    }
-
-    //Filtros combinados
-
+    @GetMapping
     public ResponseEntity<List<PersonajeBasicDTO>> getDetailsByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false, defaultValue = "-1") String age,
@@ -62,23 +54,6 @@ public class PersonajeController {
     ) {
         List<PersonajeBasicDTO> personajes = this.personajeService.getByFilters(name, age, movies, order);
         return ResponseEntity.ok(personajes);
-    }
-
-    // Deriva a getByFilters si la request trae parametros y sino trae deriva a getBasicList
-
-    @GetMapping
-    public ResponseEntity<List<PersonajeBasicDTO>> get(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false, defaultValue = "-1") String age,
-            @RequestParam(required = false) List<Long> movies,
-            @RequestParam(required = false, defaultValue = "ASC") String order
-    ) {
-        if (Objects.isNull(name) && Objects.isNull(age) && CollectionUtils.isEmpty(movies)){
-            return this.getBasicList();
-        } else {
-            return  this.getDetailsByFilters(name, age, movies, order);
-
-        }
     }
 
 

@@ -5,6 +5,7 @@ import com.alkemy.disney.disney.auth.dto.AuthenticationResponse;
 import com.alkemy.disney.disney.auth.dto.UserDTO;
 import com.alkemy.disney.disney.auth.service.JwtUtils;
 import com.alkemy.disney.disney.auth.service.UserDetailsCustomService;
+import com.alkemy.disney.disney.exception.ParamNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,13 +39,13 @@ public class UserAuthController {
         this.jwtTokenUtils = jwtTokenUtils;
     }
 
-    @PostMapping("/singup")
+    @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> singUp(@Valid @RequestBody UserDTO user) throws Exception {
         this.userDetailsService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/singin")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> singin(@RequestBody AuthenticationRequest authRequest) throws Exception {
 
         UserDetails userDetails;
@@ -54,7 +55,7 @@ public class UserAuthController {
             );
             userDetails = (UserDetails) auth.getPrincipal();
         } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            throw new ParamNotFound("Incorrect username or password");
         }
 
         final String jwt = jwtTokenUtils.generateToken(userDetails);

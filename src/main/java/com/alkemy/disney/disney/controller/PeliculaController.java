@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class PeliculaController {
     private PeliculaService peliculaService;
 
     @PostMapping
-    public ResponseEntity<PeliculaDTO> save (@RequestBody PeliculaDTO pelicula) {
+    public ResponseEntity<PeliculaDTO> save (@Valid @RequestBody PeliculaDTO pelicula) {
         PeliculaDTO peliculaSaved = peliculaService.save(pelicula);
         return ResponseEntity.status(HttpStatus.CREATED).body(peliculaSaved);
     }
@@ -46,12 +47,7 @@ public class PeliculaController {
     }
 
 
-    public ResponseEntity<List<PeliculaBasicDTO>> getBasicList() {
-        List<PeliculaBasicDTO> peliculas = this.peliculaService.getBasicList();
-        return ResponseEntity.status(HttpStatus.OK).body(peliculas);
-    }
-
-
+    @GetMapping
     public ResponseEntity<List<PeliculaBasicDTO>> getByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false, defaultValue = "0") String genre,
@@ -62,19 +58,6 @@ public class PeliculaController {
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<PeliculaBasicDTO>> get(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false, defaultValue = "-1") String genre,
-            @RequestParam(required = false, defaultValue = "ASC") String order) {
-
-        if (Objects.isNull(name) && genre.equals("-1")){
-            return this.getBasicList();
-        } else {
-            return  this.getByFilters(name, genre, order);
-
-        }
-    }
 
     @PostMapping("/{id}")
     public ResponseEntity<PeliculaDTO> addCharacter (@PathVariable Long id,@RequestBody PersonajeDTO personaje) {
