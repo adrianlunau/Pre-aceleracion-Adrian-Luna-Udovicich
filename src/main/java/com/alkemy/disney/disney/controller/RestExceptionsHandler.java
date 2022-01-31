@@ -2,6 +2,7 @@ package com.alkemy.disney.disney.controller;
 
 import com.alkemy.disney.disney.dto.ApiErrorDTO;
 import com.alkemy.disney.disney.exception.ParamNotFound;
+import com.alkemy.disney.disney.exception.UserAlreadyExistAuthenticationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,16 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST,
                 ex.getMessage(),
                 Arrays.asList("Param Not Found")
+        );
+        return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {UserAlreadyExistAuthenticationException.class})
+    protected ResponseEntity<Object> handleUserAlreadyExist(RuntimeException ex, WebRequest request) {
+        ApiErrorDTO errorDTO = new ApiErrorDTO(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                Arrays.asList("user already exists")
         );
         return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }

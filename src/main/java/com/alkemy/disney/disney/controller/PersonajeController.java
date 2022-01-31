@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,13 +22,13 @@ public class PersonajeController {
     private PersonajeService personajeService;
 
     @PostMapping
-    public ResponseEntity<PersonajeDTO> save (@RequestBody  PersonajeDTO personaje) {
+    public ResponseEntity<PersonajeDTO> save (@Valid @RequestBody  PersonajeDTO personaje) {
         PersonajeDTO personajeGuardado = personajeService.save(personaje);
         return ResponseEntity.status(HttpStatus.CREATED).body(personajeGuardado);
     }
 
     @PutMapping
-    public ResponseEntity<PersonajeDTO> update (@RequestBody PersonajeDTO personaje) {
+    public ResponseEntity<PersonajeDTO> update (@Valid @RequestBody PersonajeDTO personaje) {
         PersonajeDTO personajeModificado = personajeService.update(personaje);
         return ResponseEntity.ok().body(personajeModificado);
     }

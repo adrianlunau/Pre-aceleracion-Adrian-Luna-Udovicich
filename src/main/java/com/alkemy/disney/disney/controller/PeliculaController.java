@@ -35,7 +35,7 @@ public class PeliculaController {
     }
 
     @PutMapping
-    public ResponseEntity<PeliculaDTO> update (@RequestBody PeliculaDTO pelicula) {
+    public ResponseEntity<PeliculaDTO> update (@Valid @RequestBody PeliculaDTO pelicula) {
         PeliculaDTO peliculaModified = peliculaService.update(pelicula);
         return ResponseEntity.status(HttpStatus.OK).body(peliculaModified);
     }
@@ -60,7 +60,7 @@ public class PeliculaController {
 
 
     @PostMapping("/{id}")
-    public ResponseEntity<PeliculaDTO> addCharacter (@PathVariable Long id,@RequestBody PersonajeDTO personaje) {
+    public ResponseEntity<PeliculaDTO> addCharacter (@PathVariable Long id,@Valid @RequestBody PersonajeDTO personaje) {
         PeliculaDTO dto = this.peliculaService.addCharacter(id, personaje);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }

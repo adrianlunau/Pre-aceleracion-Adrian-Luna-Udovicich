@@ -10,9 +10,37 @@
 			"item": [
 				{
 					"name": "Save personaje",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    let nombre = pm.response.json().nombre;\r",
+									"    pm.expect(nombre).to.equal(\"Tribilin\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Tribilin\",\r\n    \"edad\": \"38\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
@@ -23,12 +51,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/characters",
-							"protocol": "http",
+							"raw": "{{URL}}/characters",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"characters"
 							]
@@ -38,12 +64,40 @@
 				},
 				{
 					"name": "update personaje",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    let nombre = pm.response.json().nombre;\r",
+									"    pm.expect(nombre).to.equal(\"Mini Mouse\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"19\",\r\n    \"imagen\": \"/img/mini.jpg\",\r\n    \"nombre\": \"Mini Mouse\",\r\n    \"edad\": \"20\",\r\n    \"peso\": \"25\",\r\n    \"historia\": \"Es la novia de mickey\"\r\n}",
+							"raw": "{\r\n    \"id\": \"90\",\r\n    \"imagen\": \"/img/mini.jpg\",\r\n    \"nombre\": \"Mini Mouse\",\r\n    \"edad\": \"20\",\r\n    \"peso\": \"25\",\r\n    \"historia\": \"Es la novia de mickey\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,12 +105,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/characters",
-							"protocol": "http",
+							"raw": "{{URL}}/characters",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"characters"
 							]
@@ -66,19 +118,34 @@
 				},
 				{
 					"name": "Delete personaje by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/characters/20",
-							"protocol": "http",
+							"raw": "{{URL}}/characters/82",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"characters",
-								"20"
+								"82"
 							]
 						}
 					},
@@ -86,16 +153,40 @@
 				},
 				{
 					"name": "Get personaje by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test\", function(){\r",
+									"    let nombre = pm.response.json().nombre;\r",
+									"    pm.expect(nombre).to.equal(\"Spiderman\");\r",
+									"})\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/characters/40",
-							"protocol": "http",
+							"raw": "{{URL}}/characters/40",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"characters",
 								"40"
@@ -106,23 +197,42 @@
 				},
 				{
 					"name": "Basic list + filtros",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/characters?name=pluto",
-							"protocol": "http",
+							"raw": "{{URL}}/characters",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"characters"
 							],
 							"query": [
 								{
 									"key": "name",
-									"value": "pluto"
+									"value": "ulk",
+									"disabled": true
 								},
 								{
 									"key": "age",
@@ -131,7 +241,7 @@
 								},
 								{
 									"key": "movies",
-									"value": "12",
+									"value": "102",
 									"disabled": true
 								},
 								{
@@ -186,10 +296,16 @@
 					"name": "Save pelicula",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Hulk\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"5\",\r\n    \"personajes\": [{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Hulk\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },\r\n    {\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    }]\r\n\r\n\r\n}",
+							"raw": "{\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Hulk\",\r\n    \"fechaCreacion\": \"2810-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"2\",\r\n    \"personajes\": [{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Hulk\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },\r\n    {\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    }]\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,12 +313,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/movies",
-							"protocol": "http",
+							"raw": "{{URL}}/movies",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"movies"
 							],
@@ -231,17 +345,21 @@
 					"name": "Get details pelicula by ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/movies/52",
-							"protocol": "http",
+							"raw": "{{URL}}/movies/119",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"movies",
-								"52"
+								"119"
 							]
 						}
 					},
@@ -251,10 +369,16 @@
 					"name": "Update pelicula",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"16\",\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Prueba modificacion\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"2\"\r\n}",
+							"raw": "{\r\n    \"id\": \"70\",\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Prueba modificacion\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"3\",\r\n    \"calificacion\": \"5\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -262,12 +386,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/movies",
-							"protocol": "http",
+							"raw": "{{URL}}/movies",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"movies"
 							]
@@ -279,17 +401,21 @@
 					"name": "Delete pelicula",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/movies/48",
-							"protocol": "http",
+							"raw": "{{URL}}/movies/102",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"movies",
-								"48"
+								"102"
 							]
 						}
 					},
@@ -299,30 +425,34 @@
 					"name": "Get basic list peliculas",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/movies?name=3",
-							"protocol": "http",
+							"raw": "{{URL}}/movies?genre=2",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"movies"
 							],
 							"query": [
 								{
-									"key": "name",
-									"value": "3"
-								},
-								{
 									"key": "genre",
-									"value": "2",
-									"disabled": true
+									"value": "2"
 								},
 								{
 									"key": "order",
 									"value": "DESC",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "gers",
 									"disabled": true
 								}
 							]
@@ -337,19 +467,27 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmR5X2w4OUBob3RtYWlsLmNvbSIsImV4cCI6MTY0MzQzMjQ5NywiaWF0IjoxNjQzMzk2NDk3fQ.e3B4_RwqXkQS69SE17WETAzcduvPVnsOnyq30bT6SRw",
+								"value": "{{JWT}}",
 								"type": "default"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Pepe\",\r\n    \"edad\": \"38\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/movies",
-							"protocol": "http",
+							"raw": "{{URL}}/movies/14",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
-								"movies"
+								"movies",
+								"14"
 							]
 						}
 					},
@@ -362,19 +500,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmR5X2w4OUBob3RtYWlsLmNvbSIsImV4cCI6MTY0MzQzMjQ5NywiaWF0IjoxNjQzMzk2NDk3fQ.e3B4_RwqXkQS69SE17WETAzcduvPVnsOnyq30bT6SRw",
+								"value": "{{JWT}}",
 								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/movies",
-							"protocol": "http",
+							"raw": "{{URL}}/movies/119/122",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
-								"movies"
+								"movies",
+								"119",
+								"122"
 							]
 						}
 					},
@@ -392,7 +530,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"adrianelunau@gmail.com\",\r\n    \"password\": \"pass1\"\r\n}",
+							"raw": "{\r\n    \"username\": \"adrianeluna@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -400,15 +538,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/singup",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/register",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"auth",
-								"singup"
+								"register"
 							]
 						}
 					},
@@ -417,8 +553,27 @@
 				{
 					"name": "singin",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"adrianelunau@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
