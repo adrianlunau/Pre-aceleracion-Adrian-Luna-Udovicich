@@ -1,11 +1,14 @@
 package com.alkemy.disney.disney.controller;
 
 import com.alkemy.disney.disney.dto.ApiErrorDTO;
+import com.alkemy.disney.disney.exception.ErrorEnum;
 import com.alkemy.disney.disney.exception.ParamNotFound;
 import com.alkemy.disney.disney.exception.UserAlreadyExistAuthenticationException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,12 +24,22 @@ import java.util.List;
 @ControllerAdvice
 public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(value = {Throwable.class})
+    protected ResponseEntity<Object> handleThrowable (Throwable ex, WebRequest request) {
+        ApiErrorDTO errorDTO = new ApiErrorDTO(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                Arrays.asList("")
+        );
+        return handleExceptionInternal((Exception) ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
     @ExceptionHandler(value = {ParamNotFound.class})
     protected ResponseEntity<Object> handleParamNotFound(RuntimeException ex, WebRequest request) {
         ApiErrorDTO errorDTO = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST,
                 ex.getMessage(),
-                Arrays.asList("Param Not Found")
+                Arrays.asList(ErrorEnum.PARAMNOTFOUND.getMensaje())
         );
         return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -36,7 +49,7 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         ApiErrorDTO errorDTO = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST,
                 ex.getMessage(),
-                Arrays.asList("user already exists")
+                Arrays.asList(ErrorEnum.USERALREADYEXIST.getMensaje())
         );
         return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -62,6 +75,19 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+       
+        InvalidFormatException invalidFormatException = (InvalidFormatException) ex.getCause();
+        invalidFormatException.getPath().get(0).getFieldName();
+
+        ApiErrorDTO errorDTO = new ApiErrorDTO(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                Arrays.asList(invalidFormatException.getPath().get(0).getFieldName())
+        );
+        return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
 
 }

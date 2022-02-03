@@ -58,14 +58,14 @@ public class PeliculaController {
 
     }
 
-
-    @PostMapping("/{id}")
-    public ResponseEntity<PeliculaDTO> addCharacter (@PathVariable Long id,@Valid @RequestBody PersonajeDTO personaje) {
-        PeliculaDTO dto = this.peliculaService.addCharacter(id, personaje);
+    // addCharacter -> controler
+    @PostMapping("/{idPelicula}/characters/{idPersonaje}")
+    public ResponseEntity<PeliculaDTO> addCharacter (@PathVariable Long idPelicula, @PathVariable Long idPersonaje) {
+        PeliculaDTO dto = this.peliculaService.addCharacter(idPelicula, idPersonaje);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
-    @PostMapping("/{id}/{idPersonaje}")
+    @DeleteMapping("/{id}/characters/{idPersonaje}")
     public ResponseEntity<PeliculaDTO> removeCharacter (@PathVariable Long id, @PathVariable Long idPersonaje) {
         PeliculaDTO dto = this.peliculaService.removeCharacter(id, idPersonaje);
         return ResponseEntity.status(HttpStatus.OK).body(dto);

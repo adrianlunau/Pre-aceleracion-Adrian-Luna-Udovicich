@@ -29,7 +29,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtil;
 
     @Autowired
-    @Lazy
     private AuthenticationManager authenticationManager;
 
     @Override

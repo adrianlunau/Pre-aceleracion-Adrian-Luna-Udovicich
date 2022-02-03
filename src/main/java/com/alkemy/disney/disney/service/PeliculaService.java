@@ -19,7 +19,7 @@ public interface PeliculaService {
 
     List<PeliculaBasicDTO> getByFilters(String name, String genre, String order);
 
-    PeliculaDTO addCharacter(Long id, PersonajeDTO personaje);
+    PeliculaDTO addCharacter(Long idPelicula, Long idPersonaje);
 
     PeliculaDTO removeCharacter(Long id, Long idPersonaje);
 }

@@ -43,7 +43,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Tribilin\",\r\n    \"edad\": \"38\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
+							"raw": "{\r\n    \"imagen\": \"/img/TEST.jpg\",\r\n    \"nombre\": \"Test\",\r\n    \"edad\": \"3\",\r\n    \"peso\": \"12\",\r\n    \"historia\": \"...\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,7 +97,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"90\",\r\n    \"imagen\": \"/img/mini.jpg\",\r\n    \"nombre\": \"Mini Mouse\",\r\n    \"edad\": \"20\",\r\n    \"peso\": \"25\",\r\n    \"historia\": \"Es la novia de mickey\"\r\n}",
+							"raw": "{\r\n    \"id\": \"157\",\r\n    \"imagen\": \"/img/mini.jpg\",\r\n    \"nombre\": \"Mini Mouse\",\r\n    \"edad\": \"1\",\r\n    \"peso\": \"25\",\r\n    \"historia\": \"Es la novia de mickey\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,13 +139,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/characters/82",
+							"raw": "{{URL}}/characters/159",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"characters",
-								"82"
+								"159"
 							]
 						}
 					},
@@ -183,13 +183,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/characters/40",
+							"raw": "{{URL}}/characters/141",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"characters",
-								"40"
+								"141"
 							]
 						}
 					},
@@ -241,7 +241,7 @@
 								},
 								{
 									"key": "movies",
-									"value": "102",
+									"value": "80",
 									"disabled": true
 								},
 								{
@@ -263,10 +263,16 @@
 					"name": "Save genero",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imagen\": \"/img/animadas.jpg\",\r\n    \"nombre\": \"animadas\"\r\n}",
+							"raw": "{\r\n    \"imagen\": \"/img/animadas.jpg\",\r\n    \"nombre\": \"accion\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -305,7 +311,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Hulk\",\r\n    \"fechaCreacion\": \"2810-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"2\",\r\n    \"personajes\": [{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Hulk\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },\r\n    {\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    }]\r\n\r\n\r\n}",
+							"raw": "{\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Hulk 19\",\r\n    \"fechaCreacion\": \"2810-05-10\",\r\n    \"genero\": \"2\",\r\n    \"calificacion\": \"2\",\r\n    \"personajes\": [{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Hulk\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },\r\n    {\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"21\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    },{\r\n        \"imagen\": \"/img/pluto.jpg\",\r\n        \"nombre\": \"Spiderman\",\r\n        \"edad\": \"14\",\r\n        \"peso\": \"30\",\r\n        \"historia\": \"El perro de mickey\"\r\n    }]\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -353,13 +359,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/movies/119",
+							"raw": "{{URL}}/movies/171",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"movies",
-								"119"
+								"171"
 							]
 						}
 					},
@@ -378,7 +384,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"70\",\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Prueba modificacion\",\r\n    \"fechaCreacion\": \"2010-05-10\",\r\n    \"genero\": \"3\",\r\n    \"calificacion\": \"5\"\r\n}",
+							"raw": "{\r\n    \"id\": \"171\",\r\n    \"imagen\": \"\",\r\n    \"titulo\": \"Prueba modificacion  de hulk\",\r\n    \"fechaCreacion\": \"2011-05-10\",\r\n    \"genero\": \"3\",\r\n    \"calificacion\": \"5\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,13 +415,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/movies/102",
+							"raw": "{{URL}}/movies/171",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"movies",
-								"102"
+								"171"
 							]
 						}
 					},
@@ -433,7 +439,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/movies?genre=2",
+							"raw": "{{URL}}/movies",
 							"host": [
 								"{{URL}}"
 							],
@@ -443,7 +449,8 @@
 							"query": [
 								{
 									"key": "genre",
-									"value": "2"
+									"value": "2",
+									"disabled": true
 								},
 								{
 									"key": "order",
@@ -473,7 +480,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Pepe\",\r\n    \"edad\": \"38\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
+							"raw": "{\r\n    \"imagen\": \"/img/pato.jpg\",\r\n    \"nombre\": \"Pepe\",\r\n    \"edad\": \"21\",\r\n    \"peso\": \"56\",\r\n    \"historia\": \"No se sabe que animal es\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -481,13 +488,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/movies/14",
+							"raw": "{{URL}}/movies/160/characters/131",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"movies",
-								"14"
+								"160",
+								"characters",
+								"131"
 							]
 						}
 					},
@@ -496,7 +505,7 @@
 				{
 					"name": "remove Character",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
@@ -505,14 +514,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/movies/119/122",
+							"raw": "{{URL}}/movies/160/characters/131",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"movies",
-								"119",
-								"122"
+								"160",
+								"characters",
+								"131"
 							]
 						}
 					},
@@ -524,13 +534,13 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "signup",
+					"name": "register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"adrianeluna@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"username\": \"adrianelunau@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -551,7 +561,7 @@
 					"response": []
 				},
 				{
-					"name": "singin",
+					"name": "login",
 					"request": {
 						"method": "POST",
 						"header": [],

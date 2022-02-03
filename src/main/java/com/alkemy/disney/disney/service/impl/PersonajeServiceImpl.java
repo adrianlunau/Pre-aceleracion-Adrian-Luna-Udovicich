@@ -4,6 +4,7 @@ import com.alkemy.disney.disney.dto.PersonajeBasicDTO;
 import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.dto.PersonajeFilterDTO;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
+import com.alkemy.disney.disney.exception.ErrorEnum;
 import com.alkemy.disney.disney.exception.ParamNotFound;
 import com.alkemy.disney.disney.mapper.PersonajeMapper;
 import com.alkemy.disney.disney.repository.PersonajeRepository;
@@ -32,6 +33,7 @@ public class PersonajeServiceImpl implements PersonajeService {
 
     @Override
     public PersonajeDTO save(PersonajeDTO dto) {
+
         PersonajeEntity entity = personajeMapper.personajeDTO2Entity(dto);
         PersonajeEntity entitySaved = this.personajeRepository.save(entity);
         PersonajeDTO result = personajeMapper.personajeEntity2DTO(entitySaved, false);
@@ -43,7 +45,7 @@ public class PersonajeServiceImpl implements PersonajeService {
         Optional<PersonajeEntity> personaje2Modified = personajeRepository.findById(personaje.getId());
 
         if(!personaje2Modified.isPresent()){
-            throw new ParamNotFound("ID personaje no valido");
+            throw new ParamNotFound(ErrorEnum.IDPERSONAJENOTVALID.getMensaje());
         }
         personaje2Modified.get().setImagen(personaje.getImagen());
         personaje2Modified.get().setNombre(personaje.getNombre());
@@ -60,7 +62,7 @@ public class PersonajeServiceImpl implements PersonajeService {
     public void delete(Long id) {
         Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
         if (!entity.isPresent()){
-            throw new ParamNotFound("ID personaje no valido");
+            throw new ParamNotFound(ErrorEnum.IDPERSONAJENOTVALID.getMensaje());
         }
         this.personajeRepository.deleteById(id);
     }
@@ -69,7 +71,7 @@ public class PersonajeServiceImpl implements PersonajeService {
     public PersonajeDTO getById(Long id) {
         Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
         if (!entity.isPresent()){
-            throw new ParamNotFound("ID personaje no valido");
+            throw new ParamNotFound(ErrorEnum.IDPERSONAJENOTVALID.getMensaje());
         }
         PersonajeDTO result = this.personajeMapper.personajeEntity2DTO(entity.get(), true);
         return result;

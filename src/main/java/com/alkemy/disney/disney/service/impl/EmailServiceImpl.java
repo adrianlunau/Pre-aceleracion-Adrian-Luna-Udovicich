@@ -1,5 +1,6 @@
 package com.alkemy.disney.disney.service.impl;
 
+import com.alkemy.disney.disney.exception.ErrorEnum;
 import com.alkemy.disney.disney.service.EmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -21,12 +22,15 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private Environment env;
 
+    @Value("${disney.email.subject}")
+    private String subject;
+
     @Value("${disney.email.sender}")
     private String emailSender;
     @Value("${disney.email.enabled}")
     private boolean enabled;
 
-    @Override
+
     public void sendWelcomeEmailTo(String to) {
 
         if (!enabled) {
@@ -35,16 +39,9 @@ public class EmailServiceImpl implements EmailService {
 
         String apiKey = env.getProperty("EMAIL_API_KEY");
 
-        Email fromEmail = new Email(emailSender);
-        Email toEmail = new Email(to);
-        Content content = new Content(
-                "text/plain",
-                "Bienvenido/a a Alkemy Disney"
-        );
+        Mail mail = this.generateMail(to);
 
-        String subject = "Alkemy Icons";
 
-        Mail mail = new Mail(fromEmail, subject, toEmail, content);
         SendGrid sg = new SendGrid(apiKey);
         Request request = new Request();
         try {
@@ -53,12 +50,26 @@ public class EmailServiceImpl implements EmailService {
             request.setBody(mail.build());
             Response response = sg.api(request);
 
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
         } catch (IOException ex) {
-            System.out.println("Error trying to send the email");
+            System.out.println(ErrorEnum.TRYINGTOSENDMAILFAIL.getMensaje());
         }
 
     }
+
+    public Mail generateMail(String to){
+        Email fromEmail = new Email(emailSender);
+        Email toEmail = new Email(to);
+        Content content = new Content(
+                "text/plain",
+                "Bienvenido/a a Alkemy Disney"
+        );
+
+        String subject = this.subject;
+
+        Mail mail = new Mail(fromEmail, subject, toEmail, content);
+
+        return mail;
+    }
+
+
 }
